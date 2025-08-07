@@ -41,6 +41,19 @@ body{
     flex: 1;
 }
 
+#operators{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 12%;
+}
+
+#elements{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 12%;
+}
 
 #numbers-and-display{
     width: 100%;
@@ -50,11 +63,6 @@ body{
     flex-direction: row;
 }
 
-#operators{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-}
 
 button{
     display: inline-block;

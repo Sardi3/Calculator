@@ -48,14 +48,14 @@ numberButtons.forEach(button => {
 
 operatorButtons.forEach(button => {
     button.addEventListener("click", function(){
-        operator = button.textContent;
-        document.querySelector("#screen").textContent=operator;
         if(!hasNum1){
             hasNum1 = true;
         };
         if(number2!=""){
             calculate();
         };
+        operator = button.textContent;
+        document.querySelector("#screen").textContent=operator;
     });
 });
 
