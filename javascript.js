@@ -3,6 +3,8 @@ let number2 = "";
 let hasNum1 = false;
 let total = 0;
 let operator = "";
+var currentOperator = "";
+var previousOperator = "";
 document.querySelector("#screen").textContent="Sardi3";
 
 
@@ -11,7 +13,7 @@ let numberButtons = document.querySelectorAll(".number-button");
 let displayButtons = document.querySelectorAll(".display-button");
 let result = document.querySelector("#result");
 
-function calculate(){
+function operate(){
     let x = Number(number1) + total;
     let y = Number(number2);
     if(operator==="+"){
@@ -29,9 +31,17 @@ function calculate(){
         };
         total = x * y;
     };
-    document.querySelector("#screen").textContent=total;
+    if(total%1!=0){
+        document.querySelector("#screen").textContent=total.toFixed(2);
+    } else{
+        document.querySelector("#screen").textContent=total;
+    };
     number1 = "";
     number2 = "";
+};
+
+function toggleOperatorOff(){
+    document.querySelector(`#${previousOperator}`).classList.remove("active-operator");
 };
 
 numberButtons.forEach(button => {
@@ -46,21 +56,28 @@ numberButtons.forEach(button => {
     });
 });
 
+
 operatorButtons.forEach(button => {
-    button.addEventListener("click", function(){
+    button.addEventListener("click", function(e){
         if(!hasNum1){
             hasNum1 = true;
         };
         if(number2!=""){
-            calculate();
+            operate();
         };
         operator = button.textContent;
-        document.querySelector("#screen").textContent=operator;
+        currentOperator = button.id;
+        if(previousOperator!=""){
+            toggleOperatorOff();
+        };
+        document.querySelector(`#${currentOperator}`).classList.add("active-operator");
+        previousOperator = currentOperator;
     });
 });
 
 result.addEventListener("click", function(){
-    calculate();
+    toggleOperatorOff();
+    operate();
 });
 
 clear.addEventListener("click", function(){
@@ -69,5 +86,6 @@ clear.addEventListener("click", function(){
     hasNum1 = false;
     total = 0;
     operator = "";
+    toggleOperatorOff();
     document.querySelector("#screen").textContent="Sardi3";
 });

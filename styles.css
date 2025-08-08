@@ -5,6 +5,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #d5d5e6;
 }
 
 #calculator{
@@ -78,6 +79,12 @@ button{
 .operator-button{
     aspect-ratio: 3/2;
 }
+
+.active-operator{
+    color: #feb236;
+    border: 2px solid #feb236;
+}
+
 
 .number-button, .display-button{
     width: 33.33%;
