@@ -14,35 +14,43 @@ let displayButtons = document.querySelectorAll(".display-button");
 let result = document.querySelector("#result");
 
 function operate(){
-    let x = Number(number1) + total;
-    let y = Number(number2);
-    if(operator==="+"){
-        total = x + y;
-    } else if(operator==="-"){
-        total = x - y;
-    } else if(operator==="÷"){
-        if(number2===""){
-            y = 1;
+    if(operator==="÷" && number2==="0"){
+        number2="";
+        document.querySelector("#screen").textContent="Cannot divide by 0";
+    } else {
+        let x = Number(number1) + total;
+        let y = Number(number2);
+        if(operator==="+"){
+            total = x + y;
+        } else if(operator==="-"){
+            total = x - y;
+        } else if(operator==="÷"){
+            if(number2===""){
+                y = 1;
+            };
+            total = x / y;
+        } else if(operator==="x"){
+            if(number2===""){
+                y = 1;
+            };
+            total = x * y;
         };
-        total = x / y;
-    } else if(operator==="x"){
-        if(number2===""){
-            y = 1;
+        if(total%1!=0){
+            document.querySelector("#screen").textContent=total.toFixed(2);
+        } else{
+            document.querySelector("#screen").textContent=total;
         };
-        total = x * y;
+        number1 = "";
+        number2 = "";
     };
-    if(total%1!=0){
-        document.querySelector("#screen").textContent=total.toFixed(2);
-    } else{
-        document.querySelector("#screen").textContent=total;
-    };
-    number1 = "";
-    number2 = "";
 };
 
 function toggleOperatorOff(){
-    document.querySelector(`#${previousOperator}`).classList.remove("active-operator");
+    if(previousOperator!=""){
+        document.querySelector(`#${previousOperator}`).classList.remove("active-operator");
+    };
 };
+
 
 numberButtons.forEach(button => {
     button.addEventListener("click", function(){
@@ -56,7 +64,6 @@ numberButtons.forEach(button => {
     });
 });
 
-
 operatorButtons.forEach(button => {
     button.addEventListener("click", function(e){
         if(!hasNum1){
@@ -67,7 +74,7 @@ operatorButtons.forEach(button => {
         };
         operator = button.textContent;
         currentOperator = button.id;
-        if(previousOperator!=""){
+        if(previousOperator!=currentOperator){
             toggleOperatorOff();
         };
         document.querySelector(`#${currentOperator}`).classList.add("active-operator");
@@ -76,7 +83,6 @@ operatorButtons.forEach(button => {
 });
 
 result.addEventListener("click", function(){
-    toggleOperatorOff();
     operate();
 });
 
