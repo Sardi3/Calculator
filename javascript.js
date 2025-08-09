@@ -17,7 +17,6 @@ var previousOperator = "";
 mainScreen.textContent="Sardi3";
 
 function operate(){
-    console.log(number1, operator, number2);
     if(operator==="÷" && number2==="0"){
         alert("Cannot divide by 0");
         clean();
@@ -80,7 +79,7 @@ numberButtons.forEach(button => {
 });
 
 operatorButtons.forEach(button => {
-    button.addEventListener("click", function(e){
+    button.addEventListener("click", function(){
         if(!hasNum1){
             hasNum1 = true;
         };
@@ -113,12 +112,12 @@ clear.addEventListener("click", function(){
 });
 
 backspace.addEventListener("click", function(){
-    if(hasNum1){
-        number2 = number2.slice(0, -1);
-        mainScreen.textContent=number2;
-    } else{
+    if(!hasNum1){
         number1 = number1.slice(0, -1);
         mainScreen.textContent=number1;
+    } else{
+        number2 = number2.slice(0, -1);
+        mainScreen.textContent=number2;
     };
 });
 
@@ -132,3 +131,60 @@ function clean(){
     mainScreen.textContent="Sardi3";
     secondaryScreen.textContent="";
 };
+
+document.addEventListener("keydown", function(event){
+    let numbers = "123456789";
+    let operators = "+-×÷"
+    let key = event.key;
+    if(event.key==="*"){
+        key="×"
+    } else if(key==="/"){
+        key="÷";
+    };
+    if (numbers.includes(key)){
+        if(!hasNum1){
+            number1 += key;
+            mainScreen.textContent=number1;
+        } else{
+            number2 += key;
+            mainScreen.textContent=number2;
+        };
+    } else if(operators.includes(key)){
+        if(!hasNum1){
+            hasNum1 = true;
+        };
+        if(number2!=""){
+            operate();
+        };
+        operator = key;
+        switch(key){
+            case "+":
+                currentOperator = "sum";
+                break;
+            case "-":
+                currentOperator = "subtraction";
+                break;
+            case "×":
+                currentOperator = "multiplication";
+                break;
+            case "÷":
+                currentOperator = "division";
+                break;
+        };
+        if(previousOperator!=currentOperator){
+            toggleOperatorOff();
+        };
+        document.querySelector(`#${currentOperator}`).classList.add("active-operator");
+        previousOperator = currentOperator;
+    } else if(key==="Enter"){
+        operate();
+    } else if(key==="Backspace"){
+        if(!hasNum1){
+            number1 = number1.slice(0, -1);
+            mainScreen.textContent=number1;
+        } else{
+            number2 = number2.slice(0, -1);
+            mainScreen.textContent=number2;
+        };
+    };
+});
