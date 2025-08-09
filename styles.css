@@ -96,8 +96,7 @@ button{
 }
 
 .active-operator{
-    color: #feb236;
-    border: 2px solid #feb236;
+    background-color: #6b5b95;
 }
 
 
@@ -110,7 +109,8 @@ button:hover{
 }
 
 #result{
-    background-color: #feb236;
+    background-color: #6b5b95;
+    width: 66.66%
 }
 
 #clear{

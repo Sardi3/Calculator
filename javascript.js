@@ -31,7 +31,7 @@ function operate(){
                 y = 1;
             };
             total = x / y;
-        } else if(operator==="x"){
+        } else if(operator==="×"){
             if(number2===""){
                 y = 1;
             };
@@ -57,11 +57,21 @@ function toggleOperatorOff(){
 numberButtons.forEach(button => {
     button.addEventListener("click", function(){
         if(!hasNum1){
-            number1 += button.textContent;
-            mainScreen.textContent=number1;
+            if(button.textContent!="."){
+                number1 += button.textContent;
+                mainScreen.textContent=number1;
+            } else if(button.textContent==="." && !number1.includes(".")){
+                number1 += button.textContent;
+                mainScreen.textContent=number1;
+            };
         } else{
-            number2 += button.textContent;
-            mainScreen.textContent=number2;
+            if(button.textContent!="."){
+                number2 += button.textContent;
+                mainScreen.textContent=number2;
+            } else if(button.textContent==="." && !number2.includes(".")){
+                number2 += button.textContent;
+                mainScreen.textContent=number2;
+            };
         };
     });
 });
