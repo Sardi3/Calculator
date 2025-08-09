@@ -2,6 +2,8 @@ let operatorButtons = document.querySelectorAll(".operator-button");
 let numberButtons = document.querySelectorAll(".number-button");
 let displayButtons = document.querySelectorAll(".display-button");
 let result = document.querySelector("#result");
+let clear = document.querySelector("#clear");
+let backspace = document.querySelector("#backspace");
 let mainScreen = document.querySelector("#main-screen");
 let secondaryScreen = document.querySelector("#history-screen");
 
@@ -15,13 +17,14 @@ var previousOperator = "";
 mainScreen.textContent="Sardi3";
 
 function operate(){
-    let x = Number(number1) + total;
-    let y = Number(number2);
-    secondaryScreen.textContent=`${x} ${operator} ${number2}`;
+    console.log(number1, operator, number2);
     if(operator==="÷" && number2==="0"){
-        number2="";
-        mainScreen="Cannot divide by 0";
+        alert("Cannot divide by 0");
+        clean();
     } else {
+        let x = Number(number1) + total;
+        let y = Number(number2);
+        secondaryScreen.textContent=`${x} ${operator} ${number2}`;
         if(operator==="+"){
             total = x + y;
         } else if(operator==="-"){
@@ -108,3 +111,24 @@ clear.addEventListener("click", function(){
     mainScreen.textContent="Sardi3";
     secondaryScreen.textContent="";
 });
+
+backspace.addEventListener("click", function(){
+    if(hasNum1){
+        number2 = number2.slice(0, -1);
+        mainScreen.textContent=number2;
+    } else{
+        number1 = number1.slice(0, -1);
+        mainScreen.textContent=number1;
+    };
+});
+
+function clean(){
+    number1 = "";
+    number2 = "";
+    hasNum1 = false;
+    total = 0;
+    operator = "";
+    toggleOperatorOff();
+    mainScreen.textContent="Sardi3";
+    secondaryScreen.textContent="";
+};

@@ -108,6 +108,10 @@ button:hover{
     opacity: 0.9;
 }
 
+button:active{
+    scale: 0.95;
+}
+
 #result{
     background-color: #6b5b95;
     width: 66.66%
