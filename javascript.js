@@ -1,3 +1,10 @@
+let operatorButtons = document.querySelectorAll(".operator-button");
+let numberButtons = document.querySelectorAll(".number-button");
+let displayButtons = document.querySelectorAll(".display-button");
+let result = document.querySelector("#result");
+let mainScreen = document.querySelector("#main-screen");
+let secondaryScreen = document.querySelector("#history-screen");
+
 let number1 = "";
 let number2 = "";
 let hasNum1 = false;
@@ -5,21 +12,16 @@ let total = 0;
 let operator = "";
 var currentOperator = "";
 var previousOperator = "";
-document.querySelector("#screen").textContent="Sardi3";
-
-
-let operatorButtons = document.querySelectorAll(".operator-button");
-let numberButtons = document.querySelectorAll(".number-button");
-let displayButtons = document.querySelectorAll(".display-button");
-let result = document.querySelector("#result");
+mainScreen.textContent="Sardi3";
 
 function operate(){
+    let x = Number(number1) + total;
+    let y = Number(number2);
+    secondaryScreen.textContent=`${x} ${operator} ${number2}`;
     if(operator==="÷" && number2==="0"){
         number2="";
-        document.querySelector("#screen").textContent="Cannot divide by 0";
+        mainScreen="Cannot divide by 0";
     } else {
-        let x = Number(number1) + total;
-        let y = Number(number2);
         if(operator==="+"){
             total = x + y;
         } else if(operator==="-"){
@@ -36,9 +38,9 @@ function operate(){
             total = x * y;
         };
         if(total%1!=0){
-            document.querySelector("#screen").textContent=total.toFixed(2);
+            mainScreen.textContent=total.toFixed(2);
         } else{
-            document.querySelector("#screen").textContent=total;
+            mainScreen.textContent=total;
         };
         number1 = "";
         number2 = "";
@@ -56,10 +58,10 @@ numberButtons.forEach(button => {
     button.addEventListener("click", function(){
         if(!hasNum1){
             number1 += button.textContent;
-            document.querySelector("#screen").textContent=number1;
+            mainScreen.textContent=number1;
         } else{
             number2 += button.textContent;
-            document.querySelector("#screen").textContent=number2;
+            mainScreen.textContent=number2;
         };
     });
 });
@@ -93,5 +95,6 @@ clear.addEventListener("click", function(){
     total = 0;
     operator = "";
     toggleOperatorOff();
-    document.querySelector("#screen").textContent="Sardi3";
+    mainScreen.textContent="Sardi3";
+    secondaryScreen.textContent="";
 });

@@ -22,16 +22,31 @@ body{
     border-radius: 5px;
 }
 
-#screen{
+.screen{
     display: flex;
-    justify-content: end;
-    align-items: end;
+    flex-direction: column;
     box-sizing: border-box;
     height: 30%;
     width: 100%;
-    font-size: 3vw;
     padding: 10px;
     background-color: #161618;
+}
+
+#history-screen{
+    display: flex;
+    height: 30%;
+    justify-content: end;
+    align-items: center;
+    font-size: 1.5vw;
+    color: lightgrey;
+}
+
+#main-screen{
+    display: flex;
+    flex: 1;
+    justify-content: end;
+    align-items: end;
+    font-size: 3vw;
     color: white;
 }
 
