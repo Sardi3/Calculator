@@ -6,6 +6,7 @@ let clear = document.querySelector("#clear");
 let backspace = document.querySelector("#backspace");
 let mainScreen = document.querySelector("#main-screen");
 let secondaryScreen = document.querySelector("#history-screen");
+const MAX_NUMBER = 16;
 
 let number1 = "";
 let number2 = "";
@@ -18,8 +19,8 @@ mainScreen.textContent="Sardi3";
 
 function operate(){
     if(operator==="÷" && number2==="0"){
-        alert("Cannot divide by 0");
         clean();
+        mainScreen.textContent="Error: Division by 0";
     } else {
         let x = Number(number1) + total;
         let y = Number(number2);
@@ -55,10 +56,9 @@ function toggleOperatorOff(){
     };
 };
 
-
-numberButtons.forEach(button => {
-    button.addEventListener("click", function(){
-        if(!hasNum1){
+function receiveNumber(button){
+    if(!hasNum1){
+        if(number1.length<MAX_NUMBER){
             if(button.textContent!="."){
                 number1 += button.textContent;
                 mainScreen.textContent=number1;
@@ -66,7 +66,9 @@ numberButtons.forEach(button => {
                 number1 += button.textContent;
                 mainScreen.textContent=number1;
             };
-        } else{
+        };
+    } else{
+        if(number2.length<MAX_NUMBER){
             if(button.textContent!="."){
                 number2 += button.textContent;
                 mainScreen.textContent=number2;
@@ -75,6 +77,14 @@ numberButtons.forEach(button => {
                 mainScreen.textContent=number2;
             };
         };
+    };
+};
+
+
+
+numberButtons.forEach(button => {
+    button.addEventListener("click", function(){
+        receiveNumber(button);
     });
 });
 
@@ -133,7 +143,7 @@ function clean(){
 };
 
 document.addEventListener("keydown", function(event){
-    let numbers = "123456789";
+    let numbers = "0123456789.";
     let operators = "+-×÷"
     let key = event.key;
     if(event.key==="*"){
@@ -143,11 +153,15 @@ document.addEventListener("keydown", function(event){
     };
     if (numbers.includes(key)){
         if(!hasNum1){
-            number1 += key;
-            mainScreen.textContent=number1;
+            if(number1.length<MAX_NUMBER){
+                number1 += key;
+                mainScreen.textContent=number1;
+            };
         } else{
-            number2 += key;
-            mainScreen.textContent=number2;
+            if(number2.length<MAX_NUMBER){
+                number2 += key;
+                mainScreen.textContent=number2;
+            };
         };
     } else if(operators.includes(key)){
         if(!hasNum1){

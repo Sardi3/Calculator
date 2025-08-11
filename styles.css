@@ -15,7 +15,7 @@ body{
     box-sizing: border-box;
     height: 90%;
     min-height: 250px;
-    aspect-ratio: 2/3;
+    aspect-ratio: 3/4;
     background-color: #161618;
     padding: 2px;
     font-family: sans-serif;
@@ -37,7 +37,7 @@ body{
     height: 30%;
     justify-content: end;
     align-items: center;
-    font-size: 1.5vw;
+    font-size: 1vw;
     color: lightgrey;
 }
 
@@ -46,7 +46,7 @@ body{
     flex: 1;
     justify-content: end;
     align-items: end;
-    font-size: 3vw;
+    font-size: 2.5vw;
     color: white;
 }
 
